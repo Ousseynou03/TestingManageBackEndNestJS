@@ -1,4 +1,4 @@
-import { Ticket } from "src/entities/Ticket";
+import { Ticket } from "src/entities/ticket.entity";
 import { EntityRepository, Repository } from "typeorm";
 
 @EntityRepository(Ticket)

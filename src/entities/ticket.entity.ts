@@ -1,9 +1,9 @@
 import {Column,Entity,Index,JoinColumn,ManyToOne,PrimaryGeneratedColumn,
 } from "typeorm";
-import { Releas } from "./Releas";
-import { Anomalie } from "./Anomalie";
-import { CasDeTest } from "./CasDeTest";
-import { Testeur } from "./Testeur";
+import { Releas } from "./releas.entity";
+import { Anomalie } from "./anomalie.entity";
+import { CasDeTest } from "./casDeTest.entity";
+import { Testeur } from "./testeur.entity";
 import { Types } from "src/enums/Types.enum";
 
 

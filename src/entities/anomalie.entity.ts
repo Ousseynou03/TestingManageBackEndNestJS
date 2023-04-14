@@ -1,5 +1,5 @@
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
-import { Ticket } from "./Ticket";
+import { Ticket } from "./ticket.entity";
 import { Statut } from "src/enums/statut.enum";
 import { Priorite } from "src/enums/priorite.enum";
 import { Criticite } from "src/enums/criticite.enum";

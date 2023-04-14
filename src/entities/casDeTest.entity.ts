@@ -1,6 +1,6 @@
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
-import { ScenarioDeTest } from "./ScenarioDeTest";
-import { Ticket } from "./Ticket";
+import { ScenarioDeTest } from "./scenarioDeTest.entity";
+import { Ticket } from "./ticket.entity";
 import { Resultat } from "src/enums/resultat.enum";
 
 @Entity("cas_de_test")

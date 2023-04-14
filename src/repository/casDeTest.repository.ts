@@ -1,4 +1,5 @@
-import { CasDeTest } from "src/entities/CasDeTest";
+
+import { CasDeTest } from "src/entities/casDeTest.entity";
 import { EntityRepository, Repository } from "typeorm";
 
 @EntityRepository(CasDeTest)

@@ -1,4 +1,5 @@
-import { ScenarioDeTest } from "src/entities/ScenarioDeTest";
+
+import { ScenarioDeTest } from "src/entities/scenarioDeTest.entity";
 import { EntityRepository, Repository } from "typeorm";
 
 @EntityRepository(ScenarioDeTest)

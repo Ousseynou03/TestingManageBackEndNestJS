@@ -1,4 +1,5 @@
-import { Releas } from "src/entities/Releas";
+
+import { Releas } from "src/entities/releas.entity";
 import { EntityRepository, Repository } from "typeorm";
 
 @EntityRepository(Releas)

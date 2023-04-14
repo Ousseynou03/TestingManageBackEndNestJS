@@ -1,4 +1,4 @@
-import { Testeur } from "src/entities/Testeur";
+import { Testeur } from "src/entities/testeur.entity";
 import { EntityRepository, Repository } from "typeorm";
 
 @EntityRepository(Testeur)

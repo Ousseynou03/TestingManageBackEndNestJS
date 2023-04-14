@@ -2,12 +2,6 @@ import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { Anomalie } from './entities/Anomalie';
-import { CasDeTest } from './entities/CasDeTest';
-import { Releas } from './entities/Releas';
-import { ScenarioDeTest } from './entities/ScenarioDeTest';
-import { Testeur } from './entities/Testeur';
-import { Ticket } from './entities/Ticket';
 import { DataSource } from 'typeorm';
 import { AnomalieRepository } from './repository/anomalie.repository';
 import { CasDeTestRepository } from './repository/casDeTest.repository';
@@ -15,6 +9,12 @@ import { ReleasRepository } from './repository/releas.repository';
 import { ScenarioDeTestRepository } from './repository/scenarioDeTest.repository';
 import { TesteurRepository } from './repository/testeur.repository';
 import { TicketRepository } from './repository/ticket.repository';
+import { Anomalie } from './entities/anomalie.entity';
+import { CasDeTest } from './entities/casDeTest.entity';
+import { ScenarioDeTest } from './entities/scenarioDeTest.entity';
+import { Releas } from './entities/releas.entity';
+import { Testeur } from './entities/testeur.entity';
+import { Ticket } from './entities/ticket.entity';
 
 @Module({
   imports: [

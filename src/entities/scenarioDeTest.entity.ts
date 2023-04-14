@@ -1,6 +1,6 @@
 import {Column,Entity,Index,JoinColumn,ManyToOne,PrimaryGeneratedColumn,
 } from "typeorm";
-import { CasDeTest } from "./CasDeTest";
+import { CasDeTest } from "./casDeTest.entity";
 
 
 @Entity("scenario_de_test")
