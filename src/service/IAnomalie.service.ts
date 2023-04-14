@@ -2,7 +2,10 @@ import { Anomalie } from "src/entities/anomalie.entity";
 
 export interface IAnomalieService {
 
- getAnomalieById(refAnomalie : string) : Promise<Anomalie>
+ getAllAnomalie(): Promise<Anomalie[]>;
+
+ 
+ getAnomalieById(refAnomalie : number) : Promise<Anomalie>
 
 
 
@@ -18,7 +21,7 @@ export interface IAnomalieService {
 
  
  
- getAllAnomalie(): Promise<Anomalie[]>;
+ 
 
 
 }

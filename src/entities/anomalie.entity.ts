@@ -9,7 +9,7 @@ import { EnCours } from "src/enums/enCours.enum";
 @Entity("anomalie")
 export class Anomalie {
   @PrimaryGeneratedColumn({ type: "bigint", name: "ref_anomalie" })
-  refAnomalie: string;
+  refAnomalie: number;
 
   @Column("varchar", { name: "cloturee", nullable: true, length: 30 })
   cloturee: Cloturee | null;

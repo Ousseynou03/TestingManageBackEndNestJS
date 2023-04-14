@@ -10,7 +10,7 @@ import { Types } from "src/enums/Types.enum";
 @Entity("ticket")
 export class Ticket {
   @PrimaryGeneratedColumn({ type: "bigint", name: "ref_ticket" })
-  refTicket: string;
+  refTicket: number;
 
   @Column("varchar", { name: "titre", nullable: true, length: 255 })
   titre: string | null;

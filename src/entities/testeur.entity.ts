@@ -4,7 +4,7 @@ import { Ticket } from "./ticket.entity";
 @Entity("testeur")
 export class Testeur {
   @PrimaryGeneratedColumn({ type: "bigint", name: "id_testeur" })
-  idTesteur: string;
+  idTesteur: number;
 
   @Column("varchar", { name: "matricule", nullable: true, length: 255 })
   matricule: string | null;

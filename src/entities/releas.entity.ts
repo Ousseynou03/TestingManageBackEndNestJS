@@ -4,7 +4,7 @@ import { Ticket } from "./ticket.entity";
 @Entity("releas")
 export class Releas {
   @PrimaryGeneratedColumn({ type: "bigint", name: "ref_release" })
-  refRelease: string;
+  refRelease: number;
 
   @Column("datetime", { name: "date_livraison", nullable: true })
   dateLivraison: Date | null;

@@ -6,7 +6,7 @@ import { CasDeTest } from "./casDeTest.entity";
 @Entity("scenario_de_test")
 export class ScenarioDeTest {
   @PrimaryGeneratedColumn({ type: "bigint", name: "ref_scenario" })
-  refScenario: string;
+  refScenario: number;
 
   @Column("varchar", { name: "scenario", nullable: true, length: 300 })
   scenario: string | null;

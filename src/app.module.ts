@@ -15,6 +15,12 @@ import { ScenarioDeTest } from './entities/scenarioDeTest.entity';
 import { Releas } from './entities/releas.entity';
 import { Testeur } from './entities/testeur.entity';
 import { Ticket } from './entities/ticket.entity';
+import { AnomalieController } from './controller/anomalie.controller';
+import { AnomalieServiceImpl } from './serviceImpl/anomalie.serviceImpl';
+import { CasDeTestServiceImpl } from './serviceImpl/casDeTest.serviceImpl';
+import { CasDeTestController } from './controller/casDeTest.controller';
+import { ReleasController } from './controller/releas.controller';
+import { ReleasServiceImpl } from './serviceImpl/releas.serviceImpl';
 
 @Module({
   imports: [
@@ -29,10 +35,11 @@ import { Ticket } from './entities/ticket.entity';
       synchronize: false,
       ////synchronize: true, ne doit pas être utilisé en production
     }),
-    //TypeOrmModule.forFeature([Anomalie, CasDeTest, Releas, ScenarioDeTest, Testeur,Ticket]),
+    TypeOrmModule.forFeature([Anomalie, CasDeTest, Releas, ScenarioDeTest, Testeur,Ticket]),
   ],
-  controllers: [AppController],
-  providers: [AppService, AnomalieRepository, CasDeTestRepository,ReleasRepository,ScenarioDeTestRepository,TesteurRepository, TicketRepository],
+  controllers: [AppController, AnomalieController, CasDeTestController, ReleasController],
+  providers: [AppService, AnomalieRepository, CasDeTestRepository,ReleasRepository,ScenarioDeTestRepository,TesteurRepository, TicketRepository,
+  AnomalieServiceImpl, CasDeTestServiceImpl, ReleasServiceImpl],
 })
 export class AppModule {
   constructor(private dataSource: DataSource) {}
