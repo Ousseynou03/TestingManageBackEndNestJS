@@ -21,6 +21,8 @@ import { CasDeTestServiceImpl } from './serviceImpl/casDeTest.serviceImpl';
 import { CasDeTestController } from './controller/casDeTest.controller';
 import { ReleasController } from './controller/releas.controller';
 import { ReleasServiceImpl } from './serviceImpl/releas.serviceImpl';
+import { ScenarioDeTestServiceImpl } from './serviceImpl/scenarioDeTest.serviceImpl';
+import { ScenarioDeTestController } from './controller/scenarioDeTest.controller';
 
 @Module({
   imports: [
@@ -37,9 +39,9 @@ import { ReleasServiceImpl } from './serviceImpl/releas.serviceImpl';
     }),
     TypeOrmModule.forFeature([Anomalie, CasDeTest, Releas, ScenarioDeTest, Testeur,Ticket]),
   ],
-  controllers: [AppController, AnomalieController, CasDeTestController, ReleasController],
+  controllers: [AppController, AnomalieController, CasDeTestController, ReleasController, ScenarioDeTestController],
   providers: [AppService, AnomalieRepository, CasDeTestRepository,ReleasRepository,ScenarioDeTestRepository,TesteurRepository, TicketRepository,
-  AnomalieServiceImpl, CasDeTestServiceImpl, ReleasServiceImpl],
+  AnomalieServiceImpl, CasDeTestServiceImpl, ReleasServiceImpl, ScenarioDeTestServiceImpl],
 })
 export class AppModule {
   constructor(private dataSource: DataSource) {}
