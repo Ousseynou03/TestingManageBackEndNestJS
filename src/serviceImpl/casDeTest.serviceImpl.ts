@@ -3,6 +3,7 @@ import { InjectRepository } from "@nestjs/typeorm";
 import { CasDeTest } from "src/entities/casDeTest.entity";
 import { CasDeTestRepository } from "src/repository/casDeTest.repository";
 import { ICasDeTestService } from "src/service/ICasDeTest.service";
+import { Transactional } from "typeorm-transactional-cls-hooked";
 
 @Injectable()
 export class CasDeTestServiceImpl implements ICasDeTestService{
@@ -39,6 +40,7 @@ export class CasDeTestServiceImpl implements ICasDeTestService{
 
 
     //Méthode pour supprimer un cas de test
+    @Transactional()
     async deleteCasDeTest(refCasTest: number): Promise<void> {
         await this.casDeTestRepository.delete({refCasTest});
     }

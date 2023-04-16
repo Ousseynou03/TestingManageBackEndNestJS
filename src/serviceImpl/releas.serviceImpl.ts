@@ -3,6 +3,7 @@ import { InjectRepository } from "@nestjs/typeorm";
 import { Releas } from "src/entities/releas.entity";
 import { ReleasRepository } from "src/repository/releas.repository";
 import { IReleasService } from "src/service/IReleas.service";
+import { Transactional } from "typeorm-transactional-cls-hooked";
 
 
 @Injectable()
@@ -28,6 +29,7 @@ export class ReleasServiceImpl implements IReleasService {
 
 
     //Méthode pour ajouter une release
+    @Transactional()
     async addReleas(releas: Releas): Promise<Releas> {
         return this.releasRepository.save(releas);
     }

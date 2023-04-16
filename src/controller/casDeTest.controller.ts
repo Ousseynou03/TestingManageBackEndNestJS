@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Param, Post, Put } from "@nestjs/common";
+import { Body, Controller, Delete, Get, InternalServerErrorException, Param, Post, Put } from "@nestjs/common";
 import { CasDeTest } from "src/entities/casDeTest.entity";
 import { CasDeTestServiceImpl } from "src/serviceImpl/casDeTest.serviceImpl";
 
@@ -24,12 +24,17 @@ export class CasDeTestController {
         //API pour ajouter un cas de test
         @Post('/')
         public async createCasDeTest(@Body() casDeTest : CasDeTest) : Promise<CasDeTest>{
-            return this.casDeTestServiceImpl.addCasDeTest(casDeTest);
-        }
+            try {
+                return await this.casDeTestServiceImpl.addCasDeTest(casDeTest);
+            } catch (error) {
+                throw new InternalServerErrorException('Une erreur est survenue lors de l\'ajout  d\'un cas de test');
+                }
+            }
     
         //API pour modifier une anomalie
-        @Put('/')
-        public async updateCasDeTest(@Body() casDeTest : CasDeTest) : Promise<CasDeTest>{
+        @Put(':id')
+        public async updateCasDeTest(@Param('id') refCasTest: number, @Body() casDeTest : CasDeTest) : Promise<CasDeTest>{
+            casDeTest.refCasTest = refCasTest;
             return this.casDeTestServiceImpl.updateCasDeTest(casDeTest);
         }
     

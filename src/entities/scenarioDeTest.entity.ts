@@ -12,7 +12,7 @@ export class ScenarioDeTest {
   scenario: string | null;
 
   @Column("bigint", { name: "cas_de_test_ref_cas_test" })
-  casDeTestRefCasTest: string;
+  casDeTestRefCasTest: number;
 
   @ManyToOne(() => CasDeTest, (casDeTest) => casDeTest.scenarioDeTests, {
     onDelete: "RESTRICT",

@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Param, Post, Put } from "@nestjs/common";
+import { Body, Controller, Delete, Get, InternalServerErrorException, Param, Post, Put } from "@nestjs/common";
 import { Anomalie } from "src/entities/anomalie.entity";
 import { AnomalieServiceImpl } from "src/serviceImpl/anomalie.serviceImpl";
 
@@ -24,14 +24,27 @@ export class AnomalieController {
     //API pour ajouter une anomalie
     @Post('/')
     public async createAnomalie(@Body() anomalie : Anomalie) : Promise<Anomalie>{
-        return this.anomalieServiceImpl.addAnomalie(anomalie);
+    try {
+        return await this.anomalieServiceImpl.addAnomalie(anomalie);
+    } catch (error) {
+        throw new InternalServerErrorException('Une erreur est survenue lors de l\'ajout de l\'anomalie');
+        }
     }
 
+    
     //API pour modifier une anomalie
-    @Put('/')
-    public async updateAnomalie(@Body() anomalie : Anomalie) : Promise<Anomalie>{
-        return this.anomalieServiceImpl.updateAnomalie(anomalie);
+    //@Put(':id')
+    //public async updateAnomalie(@Param('id') id: number ,@Body() anomalie : Anomalie) : Promise<Anomalie>{
+      //  return this.anomalieServiceImpl.updateAnomalie(id, anomalie);
+   // }
+
+   //API pour modifier une anomalie
+    @Put(':id')
+    public async updateAnomalie(@Param('id') refAnomalie: number, @Body() anomalie: Anomalie): Promise<Anomalie> {
+        anomalie.refAnomalie = refAnomalie;
+            return this.anomalieServiceImpl.updateAnomalie(anomalie);
     }
+
 
 
     //API pour supprimer une anomalie

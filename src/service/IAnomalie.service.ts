@@ -8,20 +8,11 @@ export interface IAnomalieService {
  getAnomalieById(refAnomalie : number) : Promise<Anomalie>
 
 
+ addAnomalie(anomalie : Anomalie) : Promise<Anomalie>
 
  updateAnomalie(anomalie : Anomalie): Promise<Anomalie>
 
- 
- 
- addAnomalie(anomalie : Anomalie) : Promise<Anomalie>
-
- 
- 
+  
  deleteAnomalie(refAnomalie : number) : Promise<void>
-
- 
- 
- 
-
 
 }

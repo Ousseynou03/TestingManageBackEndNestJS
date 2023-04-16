@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Param, Post, Put } from "@nestjs/common";
+import { Body, Controller, Delete, Get, InternalServerErrorException, Param, Post, Put } from "@nestjs/common";
 import { ScenarioDeTest } from "src/entities/scenarioDeTest.entity";
 import { ScenarioDeTestServiceImpl } from "src/serviceImpl/scenarioDeTest.serviceImpl";
 
@@ -21,22 +21,27 @@ export class ScenarioDeTestController {
         }
     
     
-        //API pour ajouter un cas de test
+        //API pour ajouter un scenario de test
         @Post('/')
-        public async createAnomalie(@Body() scenarioDeTest : ScenarioDeTest) : Promise<ScenarioDeTest>{
-            return this.scenarioDeTestServiceImpl.addScenarioDeTest(scenarioDeTest);
-        }
+        public async createSceanrioDeTest(@Body() scenarioDeTest : ScenarioDeTest) : Promise<ScenarioDeTest>{
+            try {
+                return await this.scenarioDeTestServiceImpl.addScenarioDeTest(scenarioDeTest);
+            } catch (error) {
+                throw new InternalServerErrorException('Une erreur est survenue lors de l\'ajout d\'un scenario de test');
+                }
+            }
     
         //API pour modifier un scenario de test
-        @Put('/')
-        public async updateAnomalie(@Body() scenarioDeTest : ScenarioDeTest) : Promise<ScenarioDeTest>{
+        @Put(':id')
+        public async updateScenarioDeTest(@Param('id') refScenario: number, @Body() scenarioDeTest : ScenarioDeTest) : Promise<ScenarioDeTest>{
+            scenarioDeTest.refScenario = refScenario;
             return this.scenarioDeTestServiceImpl.updateScenarioDeTest(scenarioDeTest);
         }
     
     
         //API pour supprimer un scenario de test
         @Delete(':id')
-        public async deleteAnomalie(@Param('id') refScenario : number) : Promise<void>{
+        public async deleteScenario(@Param('id') refScenario : number) : Promise<void>{
             await this.scenarioDeTestServiceImpl.deleteScenarioDeTest(refScenario);
         }
     

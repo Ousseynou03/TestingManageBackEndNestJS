@@ -3,12 +3,14 @@ import { InjectDataSource, InjectRepository } from "@nestjs/typeorm";
 import { Anomalie } from "src/entities/anomalie.entity";
 import { AnomalieRepository } from "src/repository/anomalie.repository";
 import { IAnomalieService } from "src/service/IAnomalie.service";
+import { DataSource } from "typeorm";
 
 
 @Injectable()
 export class AnomalieServiceImpl implements IAnomalieService {
 
-    constructor(@InjectRepository(Anomalie) private anomalieRepository:AnomalieRepository){}
+    constructor(@InjectRepository(Anomalie) private anomalieRepository:AnomalieRepository,
+    @InjectDataSource() private dataSource: DataSource){}
 
 
        //Methode pour récupérer la liste des anomalies
@@ -27,7 +29,7 @@ export class AnomalieServiceImpl implements IAnomalieService {
         return anomalie;
       }
 
-          //Méthode pour ajouter une anomalie
+    //Méthode pour ajouter une anomalie
     async addAnomalie(anomalie: Anomalie): Promise<Anomalie> {
       return this.anomalieRepository.save(anomalie);
     }

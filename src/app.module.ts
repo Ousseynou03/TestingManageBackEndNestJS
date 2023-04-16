@@ -23,6 +23,14 @@ import { ReleasController } from './controller/releas.controller';
 import { ReleasServiceImpl } from './serviceImpl/releas.serviceImpl';
 import { ScenarioDeTestServiceImpl } from './serviceImpl/scenarioDeTest.serviceImpl';
 import { ScenarioDeTestController } from './controller/scenarioDeTest.controller';
+import { TesteurServiceImpl } from './serviceImpl/testeur.serviceImpl';
+import { TesteurController } from './controller/testeur.controller';
+import { TicketServiceImpl } from './serviceImpl/ticket.serviceImpl';
+import { TicketController } from './controller/ticket.controller';
+import { APP_FILTER } from '@nestjs/core';
+import { InternalServerErrorFilter } from './handlers/InternalServerErrorFilter.handlerException';
+
+
 
 @Module({
   imports: [
@@ -39,9 +47,15 @@ import { ScenarioDeTestController } from './controller/scenarioDeTest.controller
     }),
     TypeOrmModule.forFeature([Anomalie, CasDeTest, Releas, ScenarioDeTest, Testeur,Ticket]),
   ],
-  controllers: [AppController, AnomalieController, CasDeTestController, ReleasController, ScenarioDeTestController],
+  controllers: [AppController, AnomalieController, CasDeTestController, ReleasController, ScenarioDeTestController, TesteurController, TicketController],
+
+
   providers: [AppService, AnomalieRepository, CasDeTestRepository,ReleasRepository,ScenarioDeTestRepository,TesteurRepository, TicketRepository,
-  AnomalieServiceImpl, CasDeTestServiceImpl, ReleasServiceImpl, ScenarioDeTestServiceImpl],
+  AnomalieServiceImpl, CasDeTestServiceImpl, ReleasServiceImpl, ScenarioDeTestServiceImpl, TesteurServiceImpl, TicketServiceImpl,
+  {
+    provide: APP_FILTER,
+    useClass: InternalServerErrorFilter,
+  }],
 })
 export class AppModule {
   constructor(private dataSource: DataSource) {}
