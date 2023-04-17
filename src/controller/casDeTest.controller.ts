@@ -48,7 +48,7 @@ export class CasDeTestController {
 
         //API pour la récupération des visions par cas de test
         @Get('visionCasTest/:id')
-        public async getCasVisionTest(@Param('id') id : number):Promise<any>{
+        public async getCasVisionTest(@Param('id') id : number):Promise<Object>{
             return this.casDeTestServiceImpl.getCasVisionTest(id);
         }
 }

@@ -48,7 +48,7 @@ export class CasDeTestServiceImpl implements ICasDeTestService{
 
 
     //Méthode pour récupérer les visions par cas de tests
-    public async getCasVisionTest(id: number): Promise<any> {
+    public async getCasVisionTest(id: number): Promise<Object> {
         return await this.dataSource.query(`
         SELECT
         (SELECT COUNT(*) FROM cas_de_test c, ticket t WHERE c.ref_cas_test=t.cas_de_test_ref_cas_test and t.release_ref_release=${id}) as CasDeTesTotal,
@@ -59,6 +59,8 @@ export class CasDeTestServiceImpl implements ICasDeTestService{
         (SELECT COUNT(*) FROM cas_de_test c, ticket t WHERE c.ref_cas_test=t.cas_de_test_ref_cas_test and c.resultat="Non_Teste" and t.release_ref_release=${id}) as CasDeTesNonTeste,
         (SELECT COUNT(*) FROM cas_de_test c, ticket t WHERE c.ref_cas_test=t.cas_de_test_ref_cas_test and c.resultat="Hors_Perimetre" and t.release_ref_release=${id}) as CasDeTesHorsPerimetre;`);
       }
+
+      
       
 
 

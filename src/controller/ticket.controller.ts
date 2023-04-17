@@ -1,4 +1,5 @@
 import { Body, Controller, Delete, Get, InternalServerErrorException, Param, Post, Put } from "@nestjs/common";
+import { asyncScheduler } from "rxjs";
 import { Ticket } from "src/entities/ticket.entity";
 import { TicketServiceImpl } from "src/serviceImpl/ticket.serviceImpl";
 
@@ -43,6 +44,39 @@ export class TicketController {
         @Delete(':id')
         public async deleteTicket(@Param('id') refTicket : number) : Promise<void>{
             await this.ticketServiceImpl.deleteTicket(refTicket);
+        }
+
+
+        //Récupération de la liste des tickets pour chaque release
+        @Get('ticketRelease/:id')
+        public async getAllTicketRelease(@Param('id') id : number):Promise<Ticket[]>{
+            return this.ticketServiceImpl.AllTicketRelease(id);
+        }
+
+
+        //API de récupération des visions par ticket
+        @Get('visionsTicket/:id')
+        public async getVisionTicket(@Param('id') id : number): Promise<Object>{
+            return this.ticketServiceImpl.visonTicket(id);
+        }
+
+
+        //API de récupération des visions par anomalie bloquante
+        @Get('visionsBloquante/:id')
+        public async getVisionBloquante(@Param('id') id : number): Promise<Object>{
+            return this.ticketServiceImpl.visionAnomalieBloquant(id);
+        }
+
+        //API de récupération des visions par anomalie bloquante
+        @Get('visionsMajeure/:id')
+        public async getVisionMajeure(@Param('id') id : number): Promise<Object>{
+            return this.ticketServiceImpl.visionAnomalieMajeure(id);
+        }
+
+        //API de récupération des visions par anomalie bloquante
+        @Get('visionsMineure/:id')
+        public async getVisionMineure(@Param('id') id : number): Promise<Object>{
+            return this.ticketServiceImpl.visionAnomalieMineure(id);
         }
 
 }

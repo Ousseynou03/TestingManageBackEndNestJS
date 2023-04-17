@@ -46,5 +46,8 @@ export class ReleasController {
     public async deleteRelease(@Param('id') refReleas : number) : Promise<void>{
         await this.releasServiceImpl.deleteReleas(refReleas);
     }
+
+    //API Récupération de la liste des tickets pour chaque release
+    public async 
 }
 
