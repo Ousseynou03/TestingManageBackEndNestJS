@@ -15,10 +15,10 @@ export class CasDeTestController {
         }
     
         //API de récupération d' un cas de test sachant son id
-        @Get(':id')
-        public async getCasDeTestById(@Param('id') refCasTest : number) : Promise<CasDeTest>{
-            return this.casDeTestServiceImpl.getCasDeTestById(refCasTest);
-        }
+        //@Get(':id')
+        //public async getCasDeTestById(@Param('id') refCasTest : number) : Promise<CasDeTest>{
+          //  return this.casDeTestServiceImpl.getCasDeTestById(refCasTest);
+        //}
     
     
         //API pour ajouter un cas de test
@@ -44,5 +44,11 @@ export class CasDeTestController {
         public async deleteCasDeTest(@Param('id') refCasTest : number) : Promise<void>{
             await this.casDeTestServiceImpl.deleteCasDeTest(refCasTest);
         }
-    
+
+
+        //API pour la récupération des visions par cas de test
+        @Get('visionCasTest/:id')
+        public async getCasVisionTest(@Param('id') id : number):Promise<any>{
+            return this.casDeTestServiceImpl.getCasVisionTest(id);
+        }
 }

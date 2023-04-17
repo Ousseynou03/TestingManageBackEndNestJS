@@ -1,14 +1,15 @@
 import { Injectable, NotFoundException } from "@nestjs/common";
-import { InjectRepository } from "@nestjs/typeorm";
+import { InjectDataSource, InjectRepository } from "@nestjs/typeorm";
 import { CasDeTest } from "src/entities/casDeTest.entity";
 import { CasDeTestRepository } from "src/repository/casDeTest.repository";
 import { ICasDeTestService } from "src/service/ICasDeTest.service";
-import { Transactional } from "typeorm-transactional-cls-hooked";
+import { DataSource } from "typeorm";
 
 @Injectable()
 export class CasDeTestServiceImpl implements ICasDeTestService{
     
-    constructor(@InjectRepository(CasDeTest) private casDeTestRepository : CasDeTestRepository) {}
+    constructor(@InjectRepository(CasDeTest) private casDeTestRepository : CasDeTestRepository,
+    @InjectDataSource() private dataSource: DataSource) {}
 
 
     //Méthode pour récupérer la liste des cas de test
@@ -40,11 +41,25 @@ export class CasDeTestServiceImpl implements ICasDeTestService{
 
 
     //Méthode pour supprimer un cas de test
-    @Transactional()
     async deleteCasDeTest(refCasTest: number): Promise<void> {
         await this.casDeTestRepository.delete({refCasTest});
     }
 
+
+
+    //Méthode pour récupérer les visions par cas de tests
+    public async getCasVisionTest(id: number): Promise<any> {
+        return await this.dataSource.query(`
+        SELECT
+        (SELECT COUNT(*) FROM cas_de_test c, ticket t WHERE c.ref_cas_test=t.cas_de_test_ref_cas_test and t.release_ref_release=${id}) as CasDeTesTotal,
+        (SELECT COUNT(*) FROM ticket WHERE ticket.cas_de_test_ref_cas_test IS NOT NULL ) as CasDeTestLieTicket,
+        (SELECT COUNT(*) FROM cas_de_test c, ticket t WHERE c.ref_cas_test=t.cas_de_test_ref_cas_test and c.resultat="OK" and t.release_ref_release=${id}) as CasDeTesOK,
+        (SELECT COUNT(*) FROM cas_de_test c, ticket t WHERE c.ref_cas_test=t.cas_de_test_ref_cas_test and c.resultat="KO" and t.release_ref_release=${id}) as CasDeTesKO,
+        (SELECT COUNT(*) FROM cas_de_test c, ticket t WHERE c.ref_cas_test=t.cas_de_test_ref_cas_test and c.resultat="Bloquee" and t.release_ref_release=${id}) as CasDeTesBloquee,
+        (SELECT COUNT(*) FROM cas_de_test c, ticket t WHERE c.ref_cas_test=t.cas_de_test_ref_cas_test and c.resultat="Non_Teste" and t.release_ref_release=${id}) as CasDeTesNonTeste,
+        (SELECT COUNT(*) FROM cas_de_test c, ticket t WHERE c.ref_cas_test=t.cas_de_test_ref_cas_test and c.resultat="Hors_Perimetre" and t.release_ref_release=${id}) as CasDeTesHorsPerimetre;`);
+      }
+      
 
 
 }
