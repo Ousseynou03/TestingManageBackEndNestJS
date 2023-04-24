@@ -43,13 +43,13 @@ export class ReleasServiceImpl implements IReleasService {
 
     //Méthode pour supprimer une release
     async deleteReleas(refRelease: number): Promise<void> {
-        await this.releasRepository.delete({refRelease});
+        await this.releasRepository.delete({refRelease})
     }
 
 
 
     //Récupération de la liste des tickets pour chaque release
-    async findReleasesWithTickets(): Promise<Object[]> {
+    async findReleasesWithTickets(): Promise<any[]> {
         return await this.dataSource.query(`SELECT * FROM releas LEFT JOIN ticket ON releas.ref_release = ticket.release_ref_release`);
       }
 

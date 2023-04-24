@@ -5,8 +5,9 @@ import { TicketServiceImpl } from "src/serviceImpl/ticket.serviceImpl";
 
 @Controller('ticketManager')
 export class TicketController {
-    anomalieServiceImpl: any;
 
+
+    
     constructor(private readonly ticketServiceImpl : TicketServiceImpl){}
 
         //API de récupération de la liste des tickets
@@ -55,27 +56,33 @@ export class TicketController {
 
 
         //API de récupération des visions par ticket
-        @Get('visionsTicket/:id')
-        public async getVisionTicket(@Param('id') id : number): Promise<Object>{
-            return this.ticketServiceImpl.visonTicket(id);
+        //@Get('visionsTicket/:id')
+        //public async getVisionTicket(@Param('id') id : number): Promise<any[]>{
+          //  return this.ticketServiceImpl.visonTicket(id);
+       // }
+
+       @Get('visionsTicket/:id')
+        public async getVisionTicket(@Param('id') id : number): Promise<number[]>{
+            return await this.ticketServiceImpl.visonTicket(id);
         }
+
 
 
         //API de récupération des visions par anomalie bloquante
         @Get('visionsBloquante/:id')
-        public async getVisionBloquante(@Param('id') id : number): Promise<Object>{
+        public async getVisionBloquante(@Param('id') id : number): Promise<any>{
             return this.ticketServiceImpl.visionAnomalieBloquant(id);
         }
 
         //API de récupération des visions par anomalie bloquante
         @Get('visionsMajeure/:id')
-        public async getVisionMajeure(@Param('id') id : number): Promise<Object>{
+        public async getVisionMajeure(@Param('id') id : number): Promise<any>{
             return this.ticketServiceImpl.visionAnomalieMajeure(id);
         }
 
         //API de récupération des visions par anomalie bloquante
         @Get('visionsMineure/:id')
-        public async getVisionMineure(@Param('id') id : number): Promise<Object>{
+        public async getVisionMineure(@Param('id') id : number): Promise<any>{
             return this.ticketServiceImpl.visionAnomalieMineure(id);
         }
 

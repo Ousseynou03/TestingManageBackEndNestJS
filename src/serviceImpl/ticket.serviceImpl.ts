@@ -54,7 +54,7 @@ export class TicketServiceImpl implements ITicketService {
 
 
     //Vision par ticket
-    async visonTicket(id: number): Promise<Object> {
+    async visonTicket(id: number): Promise<any[]> {
         if (!id) {
             throw new BadRequestException('id is required');
         }
@@ -73,7 +73,7 @@ export class TicketServiceImpl implements ITicketService {
     
 
     //Vision par anomalie bloquante
-    async visionAnomalieBloquant(id: number): Promise<Object> {
+    async visionAnomalieBloquant(id: number): Promise<any> {
         if (!id) {
             throw new BadRequestException('id is required');
         }
@@ -91,7 +91,7 @@ export class TicketServiceImpl implements ITicketService {
 
 
     //Vision par anomalie majeure
-    async visionAnomalieMajeure(id: number): Promise<Object> {
+    async visionAnomalieMajeure(id: number): Promise<any> {
         if (!id) {
             throw new BadRequestException('id is required');
         }
@@ -108,7 +108,7 @@ export class TicketServiceImpl implements ITicketService {
     }
 
         //Vision par anomalie majeure
-    async visionAnomalieMineure(id: number): Promise<Object> {
+    async visionAnomalieMineure(id: number): Promise<any> {
         if (!id) {
             throw new BadRequestException('id is required');
         }

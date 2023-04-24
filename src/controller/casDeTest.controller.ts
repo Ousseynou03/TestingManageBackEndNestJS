@@ -13,12 +13,8 @@ export class CasDeTestController {
         public async getCasDeTest() : Promise<CasDeTest[]> {
             return this.casDeTestServiceImpl.getAllCasDeTest();
         }
-    
-        //API de récupération d' un cas de test sachant son id
-        //@Get(':id')
-        //public async getCasDeTestById(@Param('id') refCasTest : number) : Promise<CasDeTest>{
-          //  return this.casDeTestServiceImpl.getCasDeTestById(refCasTest);
-        //}
+
+
     
     
         //API pour ajouter un cas de test
@@ -31,7 +27,7 @@ export class CasDeTestController {
                 }
             }
     
-        //API pour modifier une anomalie
+        //API pour modifier un un cas de test
         @Put(':id')
         public async updateCasDeTest(@Param('id') refCasTest: number, @Body() casDeTest : CasDeTest) : Promise<CasDeTest>{
             casDeTest.refCasTest = refCasTest;
@@ -39,7 +35,7 @@ export class CasDeTestController {
         }
     
     
-        //API pour supprimer une anomalie
+        //API pour supprimer un cas de test
         @Delete(':id')
         public async deleteCasDeTest(@Param('id') refCasTest : number) : Promise<void>{
             await this.casDeTestServiceImpl.deleteCasDeTest(refCasTest);
