@@ -15,6 +15,7 @@ export class Testeur {
   @Column("varchar", { name: "prenom", nullable: true, length: 255 })
   prenom: string | null;
 
-  @OneToMany(() => Ticket, (ticket) => ticket.testeurIdTesteur2)
+  //Ticket
+  @OneToMany(() => Ticket, (ticket) => ticket.testeur)
   tickets: Ticket[];
 }

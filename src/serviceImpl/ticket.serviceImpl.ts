@@ -14,9 +14,18 @@ export class TicketServiceImpl implements ITicketService {
 
 
     //Méthode pour récupérer la liste des tickets
+   // async getAllTicket(): Promise<Ticket[]> {
+     //   return this.ticketRepository.find()
+    //}
+
+    //Méthode pour récupérer la liste des tickets
     async getAllTicket(): Promise<Ticket[]> {
-        return this.ticketRepository.find()
-    }
+        return this.ticketRepository
+        .createQueryBuilder("ticket")
+        .leftJoinAndSelect("ticket.testeur", "testeur")
+        .getMany();
+  }
+  
 
 
     //Méthode pour récupérer un ticket sachant son id

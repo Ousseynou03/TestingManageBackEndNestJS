@@ -18,36 +18,35 @@ export class Ticket {
   @Column("varchar", { name: "type", nullable: true, length: 30 })
   type: Types | null;
 
-  @Column("bigint", { name: "anomalies_ref_anomalie", nullable: true })
-  anomaliesRefAnomalie: string | null;
 
-  @Column("bigint", { name: "cas_de_test_ref_cas_test", nullable: true })
-  casDeTestRefCasTest: string | null;
-
-  @Column("bigint", { name: "release_ref_release" })
-  releaseRefRelease: string;
-
-  @Column("bigint", { name: "testeur_id_testeur", nullable: true })
-  testeurIdTesteur: string | null;
-
-  //Relatio avec Relation
-  @ManyToOne(() => Releas, (releas) => releas.tickets, {onDelete: "RESTRICT",onUpdate: "RESTRICT",})
-  @JoinColumn([{ name: "release_ref_release", referencedColumnName: "refRelease" },])
-  releaseRefRelease2: Releas;
-
-  //Relatio avec Anomalie
-  @ManyToOne(() => Anomalie, (anomalie) => anomalie.tickets, {onDelete: "RESTRICT",onUpdate: "RESTRICT",})
-  @JoinColumn([{ name: "anomalies_ref_anomalie", referencedColumnName: "refAnomalie" },])
-  anomaliesRefAnomalie2: Anomalie;
-
-  //Relation avec cas de test
-  @ManyToOne(() => CasDeTest, (casDeTest) => casDeTest.tickets, {onDelete: "RESTRICT",onUpdate: "RESTRICT",})
-  @JoinColumn([{ name: "cas_de_test_ref_cas_test", referencedColumnName: "refCasTest" },])
-  casDeTestRefCasTest2: CasDeTest;
+  //Release
+  @ManyToOne(() => Releas, (releas) => releas.tickets)
+  @JoinColumn([
+    { name: "release_ref_release", referencedColumnName: "refRelease" },
+  ])
+  release: Releas;
 
 
-  //Relation avec Testeur
-  @ManyToOne(() => Testeur, (testeur) => testeur.tickets, {onDelete: "RESTRICT",onUpdate: "RESTRICT",})
-  @JoinColumn([{ name: "testeur_id_testeur", referencedColumnName: "idTesteur" },])
-  testeurIdTesteur2: Testeur;
+  //Anomalie
+  @ManyToOne(() => Anomalie, (anomalie) => anomalie.tickets)
+  @JoinColumn([
+    { name: "anomalies_ref_anomalie", referencedColumnName: "refAnomalie" },
+  ])
+  anomalie: Anomalie;
+
+
+  //Cas de test
+  @ManyToOne(() => CasDeTest, (casDeTest) => casDeTest.tickets)
+  @JoinColumn([
+    { name: "cas_de_test_ref_cas_test", referencedColumnName: "refCasTest" },
+  ])
+  casDeTest: CasDeTest;
+
+
+  //Testeur
+  @ManyToOne(() => Testeur, (testeur) => testeur.tickets)
+  @JoinColumn([
+    { name: "testeur_id_testeur", referencedColumnName: "idTesteur" },
+  ])
+  testeur: Testeur;
 }

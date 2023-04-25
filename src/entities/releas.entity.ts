@@ -18,6 +18,7 @@ export class Releas {
   @Column("varchar", { name: "nom_release", nullable: true, length: 255 })
   nomRelease: string | null;
 
-  @OneToMany(() => Ticket, (ticket) => ticket.releaseRefRelease2)
+  //Ticket
+  @OneToMany(() => Ticket, (ticket) => ticket.release)
   tickets: Ticket[];
 }

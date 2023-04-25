@@ -11,15 +11,11 @@ export class ScenarioDeTest {
   @Column("varchar", { name: "scenario", nullable: true, length: 300 })
   scenario: string | null;
 
-  @Column("bigint", { name: "cas_de_test_ref_cas_test" })
-  casDeTestRefCasTest: number;
 
-  @ManyToOne(() => CasDeTest, (casDeTest) => casDeTest.scenarioDeTests, {
-    onDelete: "RESTRICT",
-    onUpdate: "RESTRICT",
-  })
+  //Cas de Test
+  @ManyToOne(() => CasDeTest, (casDeTest) => casDeTest.scenarioDeTests)
   @JoinColumn([
     { name: "cas_de_test_ref_cas_test", referencedColumnName: "refCasTest" },
   ])
-  casDeTestRefCasTest2: CasDeTest;
+  casDeTest: CasDeTest;
 }

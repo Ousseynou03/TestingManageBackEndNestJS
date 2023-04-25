@@ -13,10 +13,11 @@ export class CasDeTest {
 
   @OneToMany(
     () => ScenarioDeTest,
-    (scenarioDeTest) => scenarioDeTest.casDeTestRefCasTest2
+    (scenarioDeTest) => scenarioDeTest.casDeTest
   )
   scenarioDeTests: ScenarioDeTest[];
 
-  @OneToMany(() => Ticket, (ticket) => ticket.casDeTestRefCasTest2)
+  //Ticket
+  @OneToMany(() => Ticket, (ticket) => ticket.casDeTest)
   tickets: Ticket[];
 }

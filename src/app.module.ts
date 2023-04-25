@@ -42,7 +42,7 @@ import { InternalServerErrorFilter } from './handlers/InternalServerErrorFilter.
       password: '',
       database: 'testingManageNestJS',
       entities: [Anomalie,CasDeTest,Releas,ScenarioDeTest,Testeur,Ticket],
-      synchronize: false,
+      synchronize: true,
       ////synchronize: true, ne doit pas être utilisé en production
     }),
     TypeOrmModule.forFeature([Anomalie, CasDeTest, Releas, ScenarioDeTest, Testeur,Ticket]),
