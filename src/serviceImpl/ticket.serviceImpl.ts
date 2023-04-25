@@ -23,6 +23,8 @@ export class TicketServiceImpl implements ITicketService {
         return this.ticketRepository
         .createQueryBuilder("ticket")
         .leftJoinAndSelect("ticket.testeur", "testeur")
+        .leftJoinAndSelect("ticket.anomalie", "anomalie")
+        .leftJoinAndSelect("ticket.casDeTest", "casDeTest")
         .getMany();
   }
   
