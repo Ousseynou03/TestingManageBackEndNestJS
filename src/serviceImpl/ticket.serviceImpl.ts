@@ -31,13 +31,24 @@ export class TicketServiceImpl implements ITicketService {
 
 
     //Méthode pour récupérer un ticket sachant son id
-    async getTicketById(refTicket: number): Promise<Ticket> {
-        const ticket = await this.ticketRepository.findOneBy({refTicket});
-        if (!ticket) {
-          throw new NotFoundException(`Ticket with ID:${refTicket} not found`);
-        }
-        return ticket;
+    //async getTicketById(refTicket: number): Promise<Ticket> {
+      //  const ticket = await this.ticketRepository.findOneBy({refTicket});
+        //if (!ticket) {
+          //throw new NotFoundException(`Ticket with ID:${refTicket} not found`);
+        //}
+        //return ticket;
+      //}
+
+      async getTicketById(id: number): Promise<Ticket> {
+        return this.ticketRepository
+          .createQueryBuilder("ticket")
+          .leftJoinAndSelect("ticket.testeur", "testeur")
+          .leftJoinAndSelect("ticket.anomalie", "anomalie")
+          .leftJoinAndSelect("ticket.casDeTest", "casDeTest")
+          .where("ticket.ref_ticket = :id", { id })
+          .getOne();
       }
+      
 
 
 

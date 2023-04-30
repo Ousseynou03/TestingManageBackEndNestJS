@@ -12,9 +12,17 @@ export class ScenarioDeTestServiceImpl implements IScenarioDeTestService {
 
 
     //Méthode pour récupérer la liste des scenario de test
+    //async getAllScenario(): Promise<ScenarioDeTest[]> {
+      //  return this.scenarioDeTestRepository.find();
+    //}
+
     async getAllScenario(): Promise<ScenarioDeTest[]> {
-        return this.scenarioDeTestRepository.find();
-    }
+        return this.scenarioDeTestRepository
+          .createQueryBuilder('scenario')
+          .leftJoinAndSelect('scenario.casDeTest', 'casDeTest')
+          .getMany();
+      }
+      
 
 
     //Méthode pour récupérer un scénario de test sachant son id
