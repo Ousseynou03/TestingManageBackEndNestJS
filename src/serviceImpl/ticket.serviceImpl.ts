@@ -16,27 +16,9 @@ export class TicketServiceImpl implements ITicketService {
 
     //Méthode pour récupérer la liste des tickets
     async getAllTicket(): Promise<Ticket[]> {
-        return this.ticketRepository.find(
-            //{
-            //relations: {
-              //  testeur: true,
-               // anomalies :true,
-               // casDeTest : true
-            //},
-        //}
-        )
+        return this.ticketRepository.find()
     }
 
-    //Méthode pour récupérer la liste des tickets
-    //async getAllTicket(): Promise<Ticket[]> {
-      //  return this.ticketRepository
-        //.createQueryBuilder("ticket")
-        //.leftJoinAndSelect("ticket.testeur", "testeur")
-        //.leftJoinAndSelect("ticket.anomalies", "anomalies")
-        //.leftJoinAndSelect("ticket.casDeTest", "casDeTest")
-        //.getMany();
-  //}
-  
 
 
     //Méthode pour récupérer un ticket sachant son id
@@ -48,15 +30,7 @@ export class TicketServiceImpl implements ITicketService {
         return ticket;
       }
 
-     // async getTicketById(id: number): Promise<Ticket> {
-       // return this.ticketRepository
-         // .createQueryBuilder("ticket")
-          //.leftJoinAndSelect("ticket.testeur", "testeur")
-          //.leftJoinAndSelect("ticket.anomalies", "anomalies")
-          //.leftJoinAndSelect("ticket.casDeTest", "casDeTest")
-          //.where("ticket.ref_ticket = :id", { id })
-          //.getOne();
-     // }
+
       
 
 
