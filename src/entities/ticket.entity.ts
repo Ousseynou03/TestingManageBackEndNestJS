@@ -9,7 +9,7 @@ import { Types } from "src/enums/Types.enum";
 
 @Entity("ticket")
 export class Ticket {
-  @PrimaryGeneratedColumn({ type: "bigint", name: "ref_ticket" })
+  @PrimaryGeneratedColumn({name: "ref_ticket" })
   refTicket: number;
 
   @Column("varchar", { name: "titre", nullable: true, length: 255 })
@@ -28,15 +28,15 @@ export class Ticket {
 
 
   //Anomalie
-  @ManyToOne(() => Anomalie, (anomalie) => anomalie.tickets)
+  @ManyToOne(() => Anomalie, (anomalie) => anomalie.ticket, {eager: true})
   @JoinColumn([
-    { name: "anomalies_ref_anomalie", referencedColumnName: "refAnomalie" },
+    { name: "anomalies_ref_anomalie", referencedColumnName: "refAnomalie"}
   ])
-  anomalie: Anomalie;
+  anomalies: Anomalie;
 
 
   //Cas de test
-  @ManyToOne(() => CasDeTest, (casDeTest) => casDeTest.tickets)
+  @ManyToOne(() => CasDeTest, (casDeTest) => casDeTest.ticket, {eager: true})
   @JoinColumn([
     { name: "cas_de_test_ref_cas_test", referencedColumnName: "refCasTest" },
   ])
@@ -44,7 +44,7 @@ export class Ticket {
 
 
   //Testeur
-  @ManyToOne(() => Testeur, (testeur) => testeur.tickets)
+  @ManyToOne(() => Testeur, (testeur) => testeur.ticket, {eager: true})
   @JoinColumn([
     { name: "testeur_id_testeur", referencedColumnName: "idTesteur" },
   ])

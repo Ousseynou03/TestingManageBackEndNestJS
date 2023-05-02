@@ -40,8 +40,9 @@ import { InternalServerErrorFilter } from './handlers/InternalServerErrorFilter.
       port: 3306,
       username: 'root',
       password: '',
-      database: 'testnestJS',
-      entities: [Anomalie,CasDeTest,Releas,ScenarioDeTest,Testeur,Ticket],
+      database: 'test',
+    entities: [Anomalie,CasDeTest,Releas,ScenarioDeTest,Testeur,Ticket],
+      //autoLoadEntities : true,
       synchronize: true,
       ////synchronize: true, ne doit pas être utilisé en production
     }),

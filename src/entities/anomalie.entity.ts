@@ -8,7 +8,7 @@ import { EnCours } from "src/enums/enCours.enum";
 
 @Entity("anomalie")
 export class Anomalie {
-  @PrimaryGeneratedColumn({ type: "bigint", name: "ref_anomalie" })
+  @PrimaryGeneratedColumn({name: "ref_anomalie" })
   refAnomalie: number;
 
 
@@ -33,6 +33,6 @@ export class Anomalie {
 
   
   //Ticket
-  @OneToMany(() => Ticket, (ticket) => ticket.anomalie)
-  tickets: Ticket[];
+  @OneToMany(() => Ticket, (ticket) => ticket.anomalies)
+  ticket: Ticket[];
 }

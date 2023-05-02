@@ -1,5 +1,6 @@
 import { BadRequestException, Injectable, NotFoundException } from "@nestjs/common";
 import { InjectDataSource, InjectRepository } from "@nestjs/typeorm";
+
 import { Ticket } from "src/entities/ticket.entity";
 import { TicketRepository } from "src/repository/ticket.repository";
 import { ITicketService } from "src/service/ITicket.service";
@@ -14,40 +15,48 @@ export class TicketServiceImpl implements ITicketService {
 
 
     //Méthode pour récupérer la liste des tickets
-   // async getAllTicket(): Promise<Ticket[]> {
-     //   return this.ticketRepository.find()
-    //}
+    async getAllTicket(): Promise<Ticket[]> {
+        return this.ticketRepository.find(
+            //{
+            //relations: {
+              //  testeur: true,
+               // anomalies :true,
+               // casDeTest : true
+            //},
+        //}
+        )
+    }
 
     //Méthode pour récupérer la liste des tickets
-    async getAllTicket(): Promise<Ticket[]> {
-        return this.ticketRepository
-        .createQueryBuilder("ticket")
-        .leftJoinAndSelect("ticket.testeur", "testeur")
-        .leftJoinAndSelect("ticket.anomalie", "anomalie")
-        .leftJoinAndSelect("ticket.casDeTest", "casDeTest")
-        .getMany();
-  }
+    //async getAllTicket(): Promise<Ticket[]> {
+      //  return this.ticketRepository
+        //.createQueryBuilder("ticket")
+        //.leftJoinAndSelect("ticket.testeur", "testeur")
+        //.leftJoinAndSelect("ticket.anomalies", "anomalies")
+        //.leftJoinAndSelect("ticket.casDeTest", "casDeTest")
+        //.getMany();
+  //}
   
 
 
     //Méthode pour récupérer un ticket sachant son id
-    //async getTicketById(refTicket: number): Promise<Ticket> {
-      //  const ticket = await this.ticketRepository.findOneBy({refTicket});
-        //if (!ticket) {
-          //throw new NotFoundException(`Ticket with ID:${refTicket} not found`);
-        //}
-        //return ticket;
-      //}
-
-      async getTicketById(id: number): Promise<Ticket> {
-        return this.ticketRepository
-          .createQueryBuilder("ticket")
-          .leftJoinAndSelect("ticket.testeur", "testeur")
-          .leftJoinAndSelect("ticket.anomalie", "anomalie")
-          .leftJoinAndSelect("ticket.casDeTest", "casDeTest")
-          .where("ticket.ref_ticket = :id", { id })
-          .getOne();
+    async getTicketById(refTicket: number): Promise<Ticket> {
+        const ticket = await this.ticketRepository.findOneBy({refTicket});
+        if (!ticket) {
+          throw new NotFoundException(`Ticket with ID:${refTicket} not found`);
+        }
+        return ticket;
       }
+
+     // async getTicketById(id: number): Promise<Ticket> {
+       // return this.ticketRepository
+         // .createQueryBuilder("ticket")
+          //.leftJoinAndSelect("ticket.testeur", "testeur")
+          //.leftJoinAndSelect("ticket.anomalies", "anomalies")
+          //.leftJoinAndSelect("ticket.casDeTest", "casDeTest")
+          //.where("ticket.ref_ticket = :id", { id })
+          //.getOne();
+     // }
       
 
 

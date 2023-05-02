@@ -3,7 +3,7 @@ import { Ticket } from "./ticket.entity";
 
 @Entity("testeur")
 export class Testeur {
-  @PrimaryGeneratedColumn({ type: "bigint", name: "id_testeur" })
+  @PrimaryGeneratedColumn({name: "id_testeur" })
   idTesteur: number;
 
   @Column("varchar", { name: "matricule", nullable: true, length: 255 })
@@ -17,5 +17,5 @@ export class Testeur {
 
   //Ticket
   @OneToMany(() => Ticket, (ticket) => ticket.testeur)
-  tickets: Ticket[];
+  ticket: Ticket[];
 }
