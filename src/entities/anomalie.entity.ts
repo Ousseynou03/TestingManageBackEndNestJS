@@ -34,5 +34,5 @@ export class Anomalie {
   
   //Ticket
   @OneToMany(() => Ticket, (ticket) => ticket.anomalies)
-  ticket: Ticket[];
+  ticket:Promise<Ticket[]>;
 }

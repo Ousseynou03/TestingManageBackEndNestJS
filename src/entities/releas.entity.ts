@@ -3,7 +3,7 @@ import { Ticket } from "./ticket.entity";
 
 @Entity("releas")
 export class Releas {
-  @PrimaryGeneratedColumn({ type: "bigint", name: "ref_release" })
+  @PrimaryGeneratedColumn({name: "ref_release" })
   refRelease: number;
 
   @Column("datetime", { name: "date_livraison", nullable: true })
@@ -20,5 +20,5 @@ export class Releas {
 
   //Ticket
   @OneToMany(() => Ticket, (ticket) => ticket.release)
-  tickets: Ticket[];
+  tickets: Promise<Ticket[]>;
 }

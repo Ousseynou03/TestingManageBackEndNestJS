@@ -1,5 +1,6 @@
 import { Injectable, NotFoundException } from "@nestjs/common";
 import { InjectDataSource, InjectRepository } from "@nestjs/typeorm";
+
 import { Releas } from "src/entities/releas.entity";
 import { ReleasRepository } from "src/repository/releas.repository";
 import { IReleasService } from "src/service/IReleas.service";
@@ -16,18 +17,19 @@ export class ReleasServiceImpl implements IReleasService {
 
     //Méthode pour récupérer la liste des Releases
     async getAllRelease(): Promise<Releas[]> {
-        return this.releasRepository.find();
+        return this.releasRepository.find({relations : {tickets:true}});
     }
 
 
     //Méthode pour récupérer une release sachant son id
     async getReleasById(refRelease: number): Promise<Releas> {
-        const releas = await this.releasRepository.findOneBy({refRelease});
+        const releas = await this.releasRepository.findOne({where: {refRelease}, relations: {tickets: true}});
         if (!releas) {
-          throw new NotFoundException(`Anomalie with ID:${refRelease} not found`);
+            throw new NotFoundException(`release with ID:${refRelease} not found`);
         }
         return releas;
     }
+    
 
 
     //Méthode pour ajouter une release

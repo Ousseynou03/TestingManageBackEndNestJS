@@ -62,7 +62,7 @@ export class TicketController {
        // }
 
        @Get('visionsTicket/:id')
-        public async getVisionTicket(@Param('id') id : number): Promise<number[]>{
+        public async getVisionTicket(@Param('id') id : number): Promise<Object[]>{
             return await this.ticketServiceImpl.visonTicket(id);
         }
 

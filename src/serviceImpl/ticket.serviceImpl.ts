@@ -53,13 +53,39 @@ export class TicketServiceImpl implements ITicketService {
     }
 
     //Récupération de la liste des tickets pour chaque release
-    async AllTicketRelease(id : number) : Promise<Ticket[]>{
-        return await this.dataSource.query(`SELECT * FROM ticket JOIN releas ON ticket.release_ref_release = releas.ref_release WHERE releas.ref_release=${id}`);
-    }
+   // async AllTicketRelease(id : number) : Promise<Ticket[]>{
+     //   return await this.dataSource.query(`SELECT * FROM ticket JOIN releas ON ticket.release_ref_release = releas.ref_release WHERE releas.ref_release=${id}`);
+    //}
+
+    async AllTicketRelease(id: number): Promise<Ticket[]> {
+        const results = await this.ticketRepository
+          .createQueryBuilder('ticket')
+          .leftJoinAndSelect('ticket.testeur', 'testeur')
+          .leftJoinAndSelect('ticket.release', 'release')
+          .leftJoinAndSelect('ticket.anomalies', 'anomalies')
+          .leftJoinAndSelect('ticket.casDeTest', 'casDeTest')
+          .where('release.refRelease = :id', { id })
+          .getMany();
+    
+        return results.map((result) =>
+          this.ticketRepository.create({
+            refTicket: result.refTicket,
+            titre: result.titre,
+            type: result.type,
+            testeur: result.testeur,
+            release: result.release,
+            anomalies: result.anomalies,
+            casDeTest: result.casDeTest,
+          }),
+        );
+      }
+                
+      
+
 
 
     //Vision par ticket
-    async visonTicket(id: number): Promise<any[]> {
+    async visonTicket(id: number): Promise<Object[]> {
         if (!id) {
             throw new BadRequestException('id is required');
         }

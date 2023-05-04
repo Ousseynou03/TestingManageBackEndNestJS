@@ -11,7 +11,7 @@ import { Types } from "src/enums/Types.enum";
 export class Ticket {
   @PrimaryGeneratedColumn({name: "ref_ticket" })
   refTicket: number;
-
+  
   @Column("varchar", { name: "titre", nullable: true, length: 255 })
   titre: string | null;
 
@@ -20,9 +20,9 @@ export class Ticket {
 
 
   //Release
-  @ManyToOne(() => Releas, (releas) => releas.tickets)
+  @ManyToOne(() => Releas, (releas) => releas.tickets, {eager: true})
   @JoinColumn([
-    { name: "release_ref_release", referencedColumnName: "refRelease" },
+    { name: "release_ref_release", referencedColumnName: "refRelease"},
   ])
   release: Releas;
 
