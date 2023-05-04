@@ -18,6 +18,12 @@ export class Ticket {
   @Column("varchar", { name: "type", nullable: true, length: 30 })
   type: Types | null;
 
+    //Testeur
+    @ManyToOne(() => Testeur, (testeur) => testeur.ticket, {eager: true})
+    @JoinColumn([
+      { name: "testeur_id_testeur", referencedColumnName: "idTesteur" },
+    ])
+    testeur: Testeur;
 
   //Release
   @ManyToOne(() => Releas, (releas) => releas.tickets, {eager: true})
@@ -43,10 +49,5 @@ export class Ticket {
   casDeTest: CasDeTest;
 
 
-  //Testeur
-  @ManyToOne(() => Testeur, (testeur) => testeur.ticket, {eager: true})
-  @JoinColumn([
-    { name: "testeur_id_testeur", referencedColumnName: "idTesteur" },
-  ])
-  testeur: Testeur;
+
 }

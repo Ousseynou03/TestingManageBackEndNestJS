@@ -85,11 +85,11 @@ export class TicketServiceImpl implements ITicketService {
 
 
     //Vision par ticket
-    async visonTicket(id: number): Promise<Object[]> {
+    async visonTicket(id: number): Promise<number[]> {
         if (!id) {
             throw new BadRequestException('id is required');
         }
-        return await this.dataSource.query(`
+        const result = await this.dataSource.query(`
         SELECT
         (SELECT COUNT(*) FROM ticket t WHERE t.release_ref_release=${id}) as TicketToTal,
         (SELECT COUNT(*) FROM ticket t WHERE t.cas_de_test_ref_cas_test IS NOT NULL and t.release_ref_release=${id}) as TicketCouvert,
@@ -100,15 +100,17 @@ export class TicketServiceImpl implements ITicketService {
         (SELECT COUNT(*) FROM ticket t, cas_de_test c WHERE c.ref_cas_test=t.cas_de_test_ref_cas_test and c.resultat="Bloquee" and t.release_ref_release=${id}) as Bloquee,
         (SELECT COUNT(*) FROM ticket t, cas_de_test c WHERE c.ref_cas_test=t.cas_de_test_ref_cas_test and c.resultat="Hors_Perimetre" and t.release_ref_release=${id}) as Hors_Perimetre
         `);
+        return Object.values(result[0]).map(Number);
     }
+    
     
 
     //Vision par anomalie bloquante
-    async visionAnomalieBloquant(id: number): Promise<any> {
+    async visionAnomalieBloquant(id: number): Promise<number[]> {
         if (!id) {
             throw new BadRequestException('id is required');
         }
-        return await this.dataSource.query(`
+        const result = await this.dataSource.query(`
         SELECT
         (SELECT COUNT(*) FROM ticket t, anomalie a WHERE t.anomalies_ref_anomalie=a.ref_anomalie and a.criticite="BLOQUANTE" and a.en_cours="A_TRAITES" and t.release_ref_release=${id}) as BLAT, 
         (SELECT COUNT(*) FROM ticket t, anomalie a WHERE t.anomalies_ref_anomalie=a.ref_anomalie and a.criticite="BLOQUANTE" and a.en_cours="CORRIGEES" and t.release_ref_release=${id}) as BLCO, 
@@ -118,15 +120,16 @@ export class TicketServiceImpl implements ITicketService {
         (SELECT COUNT(*) FROM ticket t, anomalie a WHERE t.anomalies_ref_anomalie=a.ref_anomalie and a.criticite="BLOQUANTE" and a.cloturee="ProblemeDocumentaire" and t.release_ref_release=${id}) as BLPD, 
         (SELECT COUNT(*) FROM ticket t, anomalie a WHERE t.anomalies_ref_anomalie=a.ref_anomalie and a.criticite="BLOQUANTE" and a.cloturee="ArbitrageProjetEvolution" and t.release_ref_release=${id}) as BLAPE
         `);
+        return Object.values(result[0]).map(Number);
     }
-
+    
 
     //Vision par anomalie majeure
-    async visionAnomalieMajeure(id: number): Promise<any> {
+    async visionAnomalieMajeure(id: number): Promise<number[]> {
         if (!id) {
             throw new BadRequestException('id is required');
         }
-        return await this.dataSource.query(`
+        const result = await this.dataSource.query(`
         SELECT
         (SELECT COUNT(*) FROM ticket t, anomalie a WHERE t.anomalies_ref_anomalie=a.ref_anomalie and a.criticite="MAJEURE" and a.en_cours="A_TRAITES" and t.release_ref_release=${id}) as BLAT,
         (SELECT COUNT(*) FROM ticket t, anomalie a WHERE t.anomalies_ref_anomalie=a.ref_anomalie and a.criticite="MAJEURE" and a.en_cours="CORRIGEES" and t.release_ref_release=${id}) as BLCO,
@@ -136,6 +139,7 @@ export class TicketServiceImpl implements ITicketService {
         (SELECT COUNT(*) FROM ticket t, anomalie a WHERE t.anomalies_ref_anomalie=a.ref_anomalie and a.criticite="MAJEURE" and a.cloturee="ProblemeDocumentaire" and t.release_ref_release=${id}) as BLPD,
         (SELECT COUNT(*) FROM ticket t, anomalie a WHERE t.anomalies_ref_anomalie=a.ref_anomalie and a.criticite="MAJEURE" and a.cloturee="ArbitrageProjetEvolution" and t.release_ref_release=${id}) as BLAPE
         `);
+        return Object.values(result[0]).map(Number);
     }
 
         //Vision par anomalie majeure
@@ -143,7 +147,7 @@ export class TicketServiceImpl implements ITicketService {
         if (!id) {
             throw new BadRequestException('id is required');
         }
-        return await this.dataSource.query(`
+        const result = await this.dataSource.query(`
         SELECT
         (SELECT COUNT(*) FROM ticket t, anomalie a WHERE t.anomalies_ref_anomalie=a.ref_anomalie and a.criticite="MINEURE" and a.en_cours="A_TRAITES" and t.release_ref_release=${id}) as BLAT, 
         (SELECT COUNT(*) FROM ticket t, anomalie a WHERE t.anomalies_ref_anomalie=a.ref_anomalie and a.criticite="MINEURE" and a.en_cours="CORRIGEES" and t.release_ref_release=${id}) as BLCO, 
@@ -152,7 +156,8 @@ export class TicketServiceImpl implements ITicketService {
         (SELECT COUNT(*) FROM ticket t, anomalie a WHERE t.anomalies_ref_anomalie=a.ref_anomalie and a.criticite="MINEURE" and a.cloturee="Rejetees" and t.release_ref_release=${id}) as BLRE, 
         (SELECT COUNT(*) FROM ticket t, anomalie a WHERE t.anomalies_ref_anomalie=a.ref_anomalie and a.criticite="MINEURE" and a.cloturee="ProblemeDocumentaire" and t.release_ref_release=${id}) as BLPD, 
         (SELECT COUNT(*) FROM ticket t, anomalie a WHERE t.anomalies_ref_anomalie=a.ref_anomalie and a.criticite="MINEURE" and a.cloturee="ArbitrageProjetEvolution" and t.release_ref_release=${id}) as BLAPE
-`);
+        `);
+        return Object.values(result[0]).map(Number);
     }
     
 }
