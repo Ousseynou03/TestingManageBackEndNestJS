@@ -43,7 +43,7 @@ import { InternalServerErrorFilter } from './handlers/InternalServerErrorFilter.
       database: 'test',
     entities: [Anomalie,CasDeTest,Releas,ScenarioDeTest,Testeur,Ticket],
       //autoLoadEntities : true,
-      synchronize: true,
+      synchronize: false,
       ////synchronize: true, ne doit pas être utilisé en production
     }),
     TypeOrmModule.forFeature([Anomalie, CasDeTest, Releas, ScenarioDeTest, Testeur,Ticket]),
