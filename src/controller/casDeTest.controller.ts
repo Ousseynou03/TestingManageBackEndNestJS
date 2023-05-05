@@ -15,6 +15,11 @@ export class CasDeTestController {
         }
 
 
+        //API de récupération d'un cas de test sachant son id
+        @Get(':id')
+        public async getCasTestById(@Param('id') refcasTest : number) : Promise<CasDeTest>{
+            return this.casDeTestServiceImpl.getCasDeTestById(refcasTest);
+        }
     
     
         //API pour ajouter un cas de test

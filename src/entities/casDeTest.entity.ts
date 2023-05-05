@@ -5,7 +5,7 @@ import { Resultat } from "src/enums/resultat.enum";
 
 @Entity("cas_de_test")
 export class CasDeTest {
-  @PrimaryGeneratedColumn({name: "ref_cas_test" })
+  @PrimaryGeneratedColumn({type : "bigint",name: "ref_cas_test" })
   refCasTest: number;
 
   @Column("varchar", { name: "resultat", nullable: true, length: 38 })

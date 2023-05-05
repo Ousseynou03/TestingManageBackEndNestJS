@@ -3,7 +3,7 @@ import { Ticket } from "./ticket.entity";
 
 @Entity("releas")
 export class Releas {
-  @PrimaryGeneratedColumn({name: "ref_release" })
+  @PrimaryGeneratedColumn({type : "bigint", name: "ref_release" })
   refRelease: number;
 
   @Column("datetime", { name: "date_livraison", nullable: true })
