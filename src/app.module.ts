@@ -35,18 +35,17 @@ import { InternalServerErrorFilter } from './handlers/InternalServerErrorFilter.
 @Module({
   imports: [
     TypeOrmModule.forRoot({
-      type: 'mysql',
+      type: 'mariadb',
       host: 'localhost',
       port: 3306,
       username: 'root',
-      password: '',
+      password: 'root',
       database: 'test',
-    entities: [Anomalie,CasDeTest,Releas,ScenarioDeTest,Testeur,Ticket],
-      //autoLoadEntities : true,
-      synchronize: false,
-      ////synchronize: true, ne doit pas être utilisé en production
+      entities: [Anomalie, CasDeTest, Releas, ScenarioDeTest, Testeur, Ticket],
+      synchronize: true,
+
     }),
-    TypeOrmModule.forFeature([Anomalie, CasDeTest, Releas, ScenarioDeTest, Testeur,Ticket]),
+    TypeOrmModule.forFeature([Anomalie, CasDeTest, Releas, ScenarioDeTest, Testeur, Ticket]),
   ],
   controllers: [AppController, AnomalieController, CasDeTestController, ReleasController, ScenarioDeTestController, TesteurController, TicketController],
 

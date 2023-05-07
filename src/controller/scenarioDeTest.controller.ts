@@ -44,6 +44,13 @@ export class ScenarioDeTestController {
         public async deleteScenario(@Param('id') refScenario : number) : Promise<void>{
             await this.scenarioDeTestServiceImpl.deleteScenarioDeTest(refScenario);
         }
+
+        
+        //Récupération de la liste des cas de test pour chaque scenario
+        @Get('casTest/:id')
+        public async getScenarioTestForCasTest(@Param('id') id : number):Promise<ScenarioDeTest[]>{
+            return this.scenarioDeTestServiceImpl.getAllScenarioCasDeTest(id);
+        }
     
 
 }

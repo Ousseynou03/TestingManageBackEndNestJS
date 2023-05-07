@@ -1,14 +1,16 @@
 import { Injectable, NotFoundException } from "@nestjs/common";
-import { InjectRepository } from "@nestjs/typeorm";
+import { InjectDataSource, InjectRepository } from "@nestjs/typeorm";
 import { ScenarioDeTest } from "src/entities/scenarioDeTest.entity";
 import { ScenarioDeTestRepository } from "src/repository/scenarioDeTest.repository";
 import { IScenarioDeTestService } from "src/service/IScenarioDeTest.service";
+import { DataSource } from "typeorm";
 
 
 @Injectable()
 export class ScenarioDeTestServiceImpl implements IScenarioDeTestService {
 
-    constructor(@InjectRepository(ScenarioDeTest) private scenarioDeTestRepository : ScenarioDeTestRepository){}
+    constructor(@InjectRepository(ScenarioDeTest) private scenarioDeTestRepository : ScenarioDeTestRepository,
+    @InjectDataSource() private dataSource: DataSource){}
 
 
     //Méthode pour récupérer la liste des scenario de test
@@ -45,7 +47,24 @@ export class ScenarioDeTestServiceImpl implements IScenarioDeTestService {
 
     //Méthode pour supprimer un scenario de test
     async deleteScenarioDeTest(refScenario: number): Promise<void> {
-        await this.deleteScenarioDeTest(refScenario);
+        await this.scenarioDeTestRepository.delete(refScenario);
     }
+
+        //Récupération de la liste des scenario pour chaque cas De TEST
+        async getAllScenarioCasDeTest(id: number): Promise<ScenarioDeTest[]> {
+          const results = await this.scenarioDeTestRepository
+            .createQueryBuilder('scenario')
+            .leftJoinAndSelect('scenario.casDeTest', 'casDeTest')
+            .where('scenario.casDeTest = :id', { id })
+            .getMany();
+      
+          return results.map((result) =>
+            this.scenarioDeTestRepository.create({
+              refScenario: result.refScenario,
+              scenario : result.scenario,
+              casDeTest: result.casDeTest,
+            }),
+          );
+        }
 
 }
