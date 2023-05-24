@@ -36,11 +36,11 @@ import { InternalServerErrorFilter } from './handlers/InternalServerErrorFilter.
   imports: [
     TypeOrmModule.forRoot({
       type: 'mariadb',
-      host: 'http://51.77.132.116',
+      host: 'http://51.77.132.116/',
       port: 3306,
       username: 'root',
       password: 'mysqlpass',
-      database: 'testnestjs',
+      database: 'testnest',
       entities: [Anomalie, CasDeTest, Releas, ScenarioDeTest, Testeur, Ticket],
       synchronize: true,
 
