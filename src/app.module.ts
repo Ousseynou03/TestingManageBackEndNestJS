@@ -35,8 +35,8 @@ import { InternalServerErrorFilter } from './handlers/InternalServerErrorFilter.
 @Module({
   imports: [
     TypeOrmModule.forRoot({
-      type: 'mysql',
-      host: 'localhost',
+      type: 'mariadb',
+      host: 'http://51.77.132.116',
       port: 3306,
       username: 'root',
       password: 'mysqlpass',
