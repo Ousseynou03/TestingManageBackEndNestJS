@@ -30,34 +30,57 @@ import { TicketController } from './controller/ticket.controller';
 import { APP_FILTER } from '@nestjs/core';
 import { InternalServerErrorFilter } from './handlers/InternalServerErrorFilter.handlerException';
 
-
-
 @Module({
   imports: [
     TypeOrmModule.forRoot({
-      type: 'mariadb',
-      host: 'http://51.77.132.116/',
+      type: 'mysql',
+      host: 'localhost',
       port: 3306,
       username: 'root',
       password: 'mysqlpass',
       database: 'testnest',
       entities: [Anomalie, CasDeTest, Releas, ScenarioDeTest, Testeur, Ticket],
       synchronize: true,
-
     }),
-    TypeOrmModule.forFeature([Anomalie, CasDeTest, Releas, ScenarioDeTest, Testeur, Ticket]),
+    TypeOrmModule.forFeature([
+      Anomalie,
+      CasDeTest,
+      Releas,
+      ScenarioDeTest,
+      Testeur,
+      Ticket,
+    ]),
   ],
-  controllers: [AppController, AnomalieController, CasDeTestController, ReleasController, ScenarioDeTestController, TesteurController, TicketController],
+  controllers: [
+    AppController,
+    AnomalieController,
+    CasDeTestController,
+    ReleasController,
+    ScenarioDeTestController,
+    TesteurController,
+    TicketController,
+  ],
 
-
-  providers: [AppService, AnomalieRepository, CasDeTestRepository,ReleasRepository,ScenarioDeTestRepository,TesteurRepository, TicketRepository,
-  AnomalieServiceImpl, CasDeTestServiceImpl, ReleasServiceImpl, ScenarioDeTestServiceImpl, TesteurServiceImpl, TicketServiceImpl,
-  {
-    provide: APP_FILTER,
-    useClass: InternalServerErrorFilter,
-  }],
+  providers: [
+    AppService,
+    AnomalieRepository,
+    CasDeTestRepository,
+    ReleasRepository,
+    ScenarioDeTestRepository,
+    TesteurRepository,
+    TicketRepository,
+    AnomalieServiceImpl,
+    CasDeTestServiceImpl,
+    ReleasServiceImpl,
+    ScenarioDeTestServiceImpl,
+    TesteurServiceImpl,
+    TicketServiceImpl,
+    {
+      provide: APP_FILTER,
+      useClass: InternalServerErrorFilter,
+    },
+  ],
 })
 export class AppModule {
   constructor(private dataSource: DataSource) {}
-
 }
